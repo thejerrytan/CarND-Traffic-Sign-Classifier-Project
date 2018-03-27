@@ -1,5 +1,5 @@
 
-# **Traffic Sign Recognition** 
+# ** Jerry's Traffic Sign Recognition** 
 
 ## Writeup
 
@@ -39,7 +39,7 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/thejerrytan/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.md)
+You're reading it! and here is a link to my [project code](https://github.com/thejerrytan/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
@@ -62,7 +62,7 @@ This is a 8 x 6 grid showing thumbnails of the traffic signs in RBG format, befo
 
 ![alt text][visualization]
 
-Below is a histogram showing how the distribution of the labels for train set.
+Below is a histogram showing the distribution of labels for train set.
 
 ![alt text][histogram_train]
 
@@ -78,17 +78,23 @@ This is a histogram showing distribution of labels for test set.
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+As a first step, I decided to convert the images to grayscale because it was mentioned in the paper by Yann LeCun and Pierre Sermanet that it yielded better results as compared to training with full RBG color information. A possible explanation is that the network cannot make full use of the overwhelming amount of color information.
 
 Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][image2]
 
-As a last step, I normalized the image data because ...
+As a last step, I normalized the image data to values between -1 and 1 because it is known to result in better numerical stability.
 
-I decided to generate additional data because ... 
+I decided to generate additional data because it is an easy way to increase the training set and improve accuracy. It also allows the model to generalize better to new images which are slightly rotated, translated or scaled.
 
-To add more data to the the data set, I used the following techniques because ... 
+To add more data to the the data set, I used the following techniques:
+1. Rotation - because the labels should be the same regardless of orientation of the photo, rotation invariance
+2. translation in width and height - because the labels should be the same regardless of where the sign is, translation invariance
+3. Scaling up - because the labels should be the same regardless of size of the traffic sign, scale invariance. 
+Since the images have to fit into a 32 x 32 image, parts of the resulting image will be cropped out. This allows the network to learn how to recognize the traffic sign even if parts of it is occluded.
+There is no need to scale down because it is already being scaled down in the subsampling stage of the network.
+
 
 Here is an example of an original image and an augmented image:
 
@@ -103,13 +109,16 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 grayscale image   					| 
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x6  				|
+| Convolution 5x5	    | 1x1 stride, outputs 10x10x16 					|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x16 	 				|
+| Fully connected		| input 400, output  120     					|
+| RELU					|												|
+| Fully connected		| input 120, output  84     					|
+| Softmax				| 	        									|
 |						|												|
 |						|												|
  

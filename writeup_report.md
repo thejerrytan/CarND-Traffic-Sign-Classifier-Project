@@ -24,12 +24,11 @@ The goals / steps of this project are the following:
 [histogram_validation]: ./report/histogram_validation.png "histogram validation"
 [image2]: ./report/grayscale.jpg "Grayscaling"
 [image3]: ./report/augmentation.jpg "Augmentation"
-[image4]: ./traffic-signs-test/keep_right.jpg "Traffic Sign 1"
+[image4]: ./traffic-signs-test/speed_limit_120.jpg "Traffic Sign 1"
 [image5]: ./traffic-signs-test/roundabout.jpg "Traffic Sign 2"
-[image6]: ./traffic-signs-test/speed_limit_30.jpg "Traffic Sign 3"
-[image7]: ./traffic-signs-test/stop.jpg "Traffic Sign 4"
-[image8]: ./traffic-signs-test/turn_left_ahead.jpg "Traffic Sign 5"
-[image9]: ./traffic-signs-test/workzone.jpg "Traffic Sign 6"
+[image7]: ./traffic-signs-test/stop.jpg "Traffic Sign 3"
+[image8]: ./traffic-signs-test/turn_left_ahead.jpg "Traffic Sign 4"
+[image9]: ./traffic-signs-test/workzone.jpg "Traffic Sign 5"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -56,7 +55,7 @@ signs data set:
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. 
+Here is an exploratory visualization of the data set. There are some photos which appear really dark, these might be taken under low light conditions (at night) and will likely pose a problem for both humans and machine.
 
 This is a 8 x 6 grid showing thumbnails of the traffic signs in RBG format, before normalization. The labels are above each thumbnail.
 
@@ -117,7 +116,9 @@ My final model consisted of the following layers:
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 	 				|
 | Fully connected		| input 400, output  120     					|
 | RELU					|												|
+| Dropout				| dropout 50%									|
 | Fully connected		| input 120, output  84     					|
+| Dropout				| dropout 50%									|
 | Softmax				| 	        									|
 |						|												|
 |						|												|

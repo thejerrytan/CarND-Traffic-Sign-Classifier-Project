@@ -215,7 +215,7 @@ Here are the results of the prediction:
 | Roundabout mandatory 	| Roundabout mandatory 							|
 | Speed limit (120km/h)	| speed limit (50 km/h)							|
 | Stop sign	      		| speed limit (50 km/h)			 				|
-| Road work 	   		| Road word 	      							|
+| Road work 	   		| Road work 	      							|
 
 
 The model was able to correctly guess 2 of the 5 traffic signs, which gives an accuracy of 40%. This does not compare favourably to the test set accuracy of 0.935 but this is not a representative measure as it is just over a sample of 5, and the traffic signs were purposely chosen to be difficult.
